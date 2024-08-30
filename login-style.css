@@ -72,3 +72,18 @@ button {
 button:hover {
   background-color: #1c86ee; /* Slightly darker blue on hover */
 }
+
+.register-link {
+  margin-top: 15px;
+  color: #ffffff;
+  font-size: 14px;
+}
+
+.register-link a {
+  color: #1e90ff;
+  text-decoration: none;
+}
+
+.register-link a:hover {
+  text-decoration: underline;
+}
