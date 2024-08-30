@@ -34,14 +34,21 @@
             <label for="no_kendaraan">No kendaraan</label>
             <input type="no_kendaraan" id="no_kendaraan" name="no_kendaraan" />
           </div>
-          
+
           <div class="input-group">
             <label for="password">Password</label>
             <input type="password" id="password" name="password" />
           </div>
-          <button type="submit">Register</button>
+          <button type="submit">Daftar</button>
         </form>
+        <button class="back-button" onclick="goBack()">Kembali</button>
       </div>
     </div>
+    <script>
+      // JavaScript function to go back to the previous page
+      function goBack() {
+        window.history.back();
+      }
+    </script>
   </body>
 </html>
