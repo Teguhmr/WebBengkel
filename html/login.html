@@ -34,6 +34,7 @@
       document.addEventListener("DOMContentLoaded", function () {
         const urlParams = new URLSearchParams(window.location.search);
         const error = urlParams.get("error");
+        const success = urlParams.get("success");
         if (error === "invalid") {
           alert("Invalid username or password");
           window.history.replaceState(
@@ -41,7 +42,7 @@
             document.title,
             window.location.pathname
           );
-        } else {
+        } else if (success === "create") {
           alert("Registrasi berhasil");
           window.history.replaceState(
             {},
