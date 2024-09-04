@@ -10,31 +10,41 @@
     <div class="login-container">
       <div class="login-box">
         <h2>REGISTER</h2>
-        <form>
+        <form method="post" action="../php/register.php">
           <div class="input-group">
             <label for="username">Username</label>
-            <input type="text" id="username" name="username" />
+            <input type="text" id="username" name="username" required /><br />
           </div>
           <div class="input-group">
             <label for="nama">Nama</label>
-            <input type="text" id="nama" name="nama" />
+            <input type="text" id="name" name="name" required /><br />
           </div>
           <div class="input-group">
             <label for="alamat">Alamat</label>
-            <input type="alamat" id="alamat" name="alamat" />
+            <input type="text" id="address" name="address" required /><br />
           </div>
           <div class="input-group">
             <label for="nohp">No Hp</label>
-            <input type="nohp" id="nohp" name="nohp" />
+            <input type="number" id="phone" name="phone" required /><br />
           </div>
           <div class="input-group">
             <label for="no_kendaraan">No kendaraan</label>
-            <input type="no_kendaraan" id="no_kendaraan" name="no_kendaraan" />
+            <input
+              type="text"
+              id="vehicle_number"
+              name="vehicle_number"
+              required
+            /><br />
           </div>
 
           <div class="input-group">
             <label for="password">Password</label>
-            <input type="password" id="password" name="password" />
+            <input
+              type="password"
+              id="password"
+              name="password"
+              required
+            /><br />
           </div>
           <button type="submit">Daftar</button>
         </form>
