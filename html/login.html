@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Bengkel A3R Team Login</title>
-    <link rel="stylesheet" href="login-style.css" />
+    <link rel="stylesheet" href="../css/login-style.css" />
   </head>
   <body>
     <div class="login-container">
@@ -13,7 +13,7 @@
           <img src="images/logo-bengkel.png" alt="Mechanic Image" />
         </div>
         <h2>BENGKEL A3R TEAM</h2>
-        <form>
+        <form action="php/home.php" method="post">
           <div class="input-group">
             <label for="username">Username</label>
             <input type="text" id="username" name="username" />
@@ -25,9 +25,24 @@
           <button type="submit">Masuk</button>
         </form>
         <p class="register-link">
-          Tidak memiliki akun? <a href="register.html">Daftar disini</a>
+          Tidak memiliki akun? <a href="html/register.html">Daftar disini</a>
         </p>
       </div>
     </div>
+    <script>
+      // Trigger the alert if there's an error
+      document.addEventListener("DOMContentLoaded", function () {
+        const urlParams = new URLSearchParams(window.location.search);
+        const error = urlParams.get("error");
+        if (error === "invalid") {
+          alert("Invalid username or password");
+          window.history.replaceState(
+            {},
+            document.title,
+            window.location.pathname
+          );
+        }
+      });
+    </script>
   </body>
 </html>
