@@ -33,7 +33,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     
             // Redirect based on role
             if ($role === 'admin') {
-                header("Location: admin_home.html");
+                header("Location: ../html/admin_home.html");
             } elseif ($role === 'customer') {
                 header("Location: ../html/customer_home.html");
             }
