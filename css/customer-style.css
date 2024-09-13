@@ -6,6 +6,33 @@ body {
   background-color: #f7f7f7;
 }
 
+.container {
+  max-width: 800px;
+  margin: auto;
+  text-align: justify;
+}
+.profile-info,
+.contact-info,
+.order-list {
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
+.order-list ul {
+  list-style-type: none;
+  padding: 0;
+}
+.order-list ul li {
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+}
+.order-list ul li:last-child {
+  border-bottom: none;
+}
+
 .navbar {
   background-color: #240481; /* Dark purple background */
   display: flex;
