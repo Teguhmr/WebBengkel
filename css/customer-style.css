@@ -33,11 +33,16 @@ body {
   border-bottom: none;
 }
 
+.logo {
+  color: #fff;
+  font-size: 24px;
+  font-weight: bold;
+}
 .navbar {
   background-color: #240481; /* Dark purple background */
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: center; /* Align items vertically */
   padding: 10px 20px;
 }
 
@@ -47,25 +52,60 @@ body {
   font-weight: bold;
 }
 
+.nav-links {
+  display: flex;
+  align-items: center; /* Align items vertically */
+}
+
 .nav-links a {
-  margin-left: 15px;
-  color: #fff;
   text-decoration: none;
+  color: white;
+  padding: 10px;
+  display: inline-flex;
+  align-items: center;
+  background-color: transparent; /* Default background */
+  transition: background-color 0.3s, border-radius 0.3s; /* Smooth transition for background and corners */
+  border-radius: 0; /* Default no rounded corners */
+  margin-left: 5px; /* Reset any potential margin */
+}
+
+.nav-links a:hover {
+  background-color: lightgray;
+  color: white;
+  border-radius: 5px;
+}
+
+.nav-links a.active {
+  background-color: blue;
+  color: white;
+  border-radius: 5px; /* Rounded corners for active link */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* Optional: Add shadow for emphasis */
 }
 
 .nav-links img {
   width: 24px;
   height: 24px;
+  margin-right: 5px;
+  transition: transform 0.3s;
 }
 
-.logout {
-  color: #fff;
-  text-decoration: none;
-  margin-left: 15px;
+.nav-links a:hover img {
+  transform: scale(1.1);
+}
+/* Specific styles for the Logout button */
+.nav-links .logout {
+  background-color: #240481; /* Red background color */
+  color: white; /* White text color */
+  padding: 10px; /* Padding to make it look like a button */
+  border-radius: 5px; /* Rounded corners */
+  margin-left: 15px; /* Ensure spacing from other links */
+  transition: background-color 0.3s ease;
 }
 
-.logout:hover {
-  text-decoration: underline;
+/* Hover effect for the Logout button */
+.nav-links .logout:hover {
+  background-color: #ff1a1a; /* Darker red on hover */
+  color: white; /* Keep text white */
 }
 
 .profile img {
