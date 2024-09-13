@@ -8,15 +8,12 @@
   </head>
   <body>
     <!-- Include header and navbar -->
-    <?php include 'header.php'; ?>
-
+    <?php include 'customer_header.php'; ?>
     <!-- Main content specific to the customer home page -->
     <main>
       <div class="welcome-section">
         <img src="../images/logo-bengkel.png" alt="Mechanic Image" />
-        <h1>Selamat Datang di</h1>
-        <h2>BENGKEL A3R TEAM</h2>
-        <p>Melayani kebutuhan kendaraan anda</p>
+        <h1>Ini halaman service</h1>
       </div>
     </main>
   </body>

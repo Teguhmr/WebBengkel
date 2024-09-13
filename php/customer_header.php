@@ -5,7 +5,7 @@
     <div class="nav-links">
       <a href="customer_home.php"><img src="../images/home.png" alt="Home" /> Home</a>
       <a href="customer_service.php"><img src="../images/service.png" alt="Service" /> Service</a>
-      <a href="sparepart.php"><img src="../images/sparepart.png" alt="Sparepart" /> Sparepart</a>
+      <a href="customer_sparepart.php"><img src="../images/sparepart.png" alt="Sparepart" /> Sparepart</a>
       <a href="../php/logout.php" class="logout">Log Out</a>
     </div>
   </div>
