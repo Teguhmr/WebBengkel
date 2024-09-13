@@ -1,0 +1,178 @@
+/* home-style.css */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+  background-color: #f7f7f7;
+}
+
+/* Hide the text by default */
+.nav-text {
+  display: none; /* Text is hidden initially */
+}
+
+/* Show text when the link is active */
+.nav-item.active .nav-text {
+  display: inline-block; /* Show the text only for active link */
+}
+
+/* Ensure icon and text are aligned */
+.nav-item {
+  text-decoration: none;
+  color: white;
+  padding: 10px;
+  display: inline-flex;
+  align-items: center;
+  transition: background-color 0.3s; /* Smooth transition for background */
+}
+
+/* Hover effect for links */
+.nav-item:hover {
+  background-color: lightgray;
+}
+
+/* Image styling */
+.nav-item img {
+  width: 24px;
+  height: 24px;
+  margin-right: 5px;
+}
+
+/* Active link styles */
+.nav-item.active {
+  background-color: blue; /* Background color for active link */
+  color: white; /* Text color for active link */
+  border-radius: 5px;
+}
+
+/* Logout specific hover */
+.logout:hover {
+  background-color: red; /* Red background for logout on hover */
+}
+
+.container {
+  max-width: 800px;
+  margin: auto;
+  text-align: justify;
+}
+.profile-info,
+.contact-info,
+.order-list {
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
+.order-list ul {
+  list-style-type: none;
+  padding: 0;
+}
+.order-list ul li {
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+}
+.order-list ul li:last-child {
+  border-bottom: none;
+}
+
+.logo {
+  color: #fff;
+  font-size: 24px;
+  font-weight: bold;
+}
+.navbar {
+  background-color: #240481; /* Dark purple background */
+  display: flex;
+  justify-content: space-between;
+  align-items: center; /* Align items vertically */
+  padding: 10px 20px;
+}
+
+.logo {
+  color: #fff;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.nav-links {
+  display: flex;
+  align-items: center; /* Align items vertically */
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: white;
+  padding: 10px;
+  display: inline-flex;
+  align-items: center;
+  background-color: transparent; /* Default background */
+  transition: background-color 0.3s, border-radius 0.3s; /* Smooth transition for background and corners */
+  border-radius: 0; /* Default no rounded corners */
+  margin-left: 5px; /* Reset any potential margin */
+}
+
+.nav-links a:hover {
+  background-color: lightgray;
+  color: white;
+  border-radius: 5px;
+}
+
+.nav-links a.active {
+  background-color: blue;
+  color: white;
+  border-radius: 5px; /* Rounded corners for active link */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* Optional: Add shadow for emphasis */
+}
+
+.nav-links img {
+  width: 24px;
+  height: 24px;
+  margin-right: 5px;
+  transition: transform 0.3s;
+}
+
+.nav-links a:hover img {
+  transform: scale(1.1);
+}
+/* Specific styles for the Logout button */
+.nav-links .logout {
+  background-color: #240481; /* Red background color */
+  color: white; /* White text color */
+  padding: 10px; /* Padding to make it look like a button */
+  border-radius: 5px; /* Rounded corners */
+  margin-left: 15px; /* Ensure spacing from other links */
+  transition: background-color 0.3s ease;
+}
+
+/* Hover effect for the Logout button */
+.nav-links .logout:hover {
+  background-color: #ff1a1a; /* Darker red on hover */
+  color: white; /* Keep text white */
+}
+
+.profile img {
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+}
+
+.welcome-section {
+  text-align: center;
+  margin-top: 50px;
+}
+
+.welcome-section img {
+  width: 250px;
+  height: auto;
+}
+
+.welcome-section h1 {
+  margin-top: 20px;
+}
+.welcome-section h2,
+.welcome-section p {
+  margin: 10px 0;
+  color: #333;
+}

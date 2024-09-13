@@ -4,12 +4,12 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Admin Home - Bengkel A3R Team</title>
-    <link rel="stylesheet" href="../css/customer-style.css" />
+    <link rel="stylesheet" href="../css/admin-style.css" />
   </head>
   <body>
     <!-- Include header and navbar -->
     <?php include 'admin_header.php'; ?>
-
+    <script src="../javascript/navbar.js"></script>
     <!-- Main content specific to the customer home page -->
     <main>
       <div class="welcome-section">
