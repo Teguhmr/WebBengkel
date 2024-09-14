@@ -17,5 +17,6 @@
         <h1>SPAREPART</h1>
       </div>
     </main>
+    <script src="../javascript/navbar.js"></script>
   </body>
 </html>

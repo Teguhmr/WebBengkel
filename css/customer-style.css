@@ -46,12 +46,6 @@ body {
   padding: 10px 20px;
 }
 
-.logo {
-  color: #fff;
-  font-size: 24px;
-  font-weight: bold;
-}
-
 .nav-links {
   display: flex;
   align-items: center; /* Align items vertically */
@@ -98,7 +92,7 @@ body {
   color: white; /* White text color */
   padding: 10px; /* Padding to make it look like a button */
   border-radius: 5px; /* Rounded corners */
-  margin-left: 15px; /* Ensure spacing from other links */
+  margin-left: 10px; /* Ensure spacing from other links */
   transition: background-color 0.3s ease;
 }
 

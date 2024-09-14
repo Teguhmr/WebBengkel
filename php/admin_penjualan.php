@@ -17,5 +17,6 @@
         <h1>PENJUALAN</h1>
       </div>
     </main>
+    <script src="../javascript/navbar.js"></script>
   </body>
 </html>

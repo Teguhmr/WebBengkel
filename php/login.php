@@ -2,16 +2,7 @@
 session_start();
 
 // Database connection settings
-$servername = "localhost";
-$db_username = "root";
-$db_password = "";
-$dbname = "bengkel";
-
-$conn = new mysqli($servername, $db_username, $db_password, $dbname);
-
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
+include 'database_connection.php';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $input_username = $_POST['username'];
@@ -30,10 +21,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             // Start session and set role
             $_SESSION['username'] = $username;
             $_SESSION['role'] = $role;
-    
+            $_SESSION['id_user'] = $id_user;
+
             // Redirect based on role
             if ($role === 'admin') {
-                header("Location: ../php/admin_home.php");
+                header("Location: ../php/admin_pelanggan.php");
             } elseif ($role === 'customer') {
                 header("Location: ../php/customer_home.php");
             }

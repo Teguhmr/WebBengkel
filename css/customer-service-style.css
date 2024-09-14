@@ -1,0 +1,113 @@
+.table-container {
+  width: 90%;
+  margin: 50px auto;
+  border: 1px solid #ddd;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  background-color: white;
+}
+
+h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 24px;
+  color: #333;
+}
+
+.search-bar {
+  text-align: right;
+  margin-bottom: 20px;
+}
+
+.search-bar input[type="text"] {
+  padding: 5px;
+  font-size: 16px;
+  width: 200px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+table {
+  width: 100%;
+  /* Full width */
+  table-layout: fixed;
+  /* Fixed layout to prevent resizing */
+  border-collapse: collapse;
+}
+
+th,
+td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+
+th {
+  background-color: #f2f2f2;
+  font-weight: bold;
+}
+
+/* Set a fixed width for each column */
+th,
+td {
+  word-wrap: break-word;
+  /* Ensure long content wraps inside the cell */
+}
+
+/* Example widths for each column */
+th:nth-child(1),
+td:nth-child(1) {
+  /* id_kendaraan */
+  width: 20%;
+}
+
+th:nth-child(2),
+td:nth-child(2) {
+  /* nama_pelanggan */
+  width: 20%;
+}
+
+th:nth-child(3),
+td:nth-child(3) {
+  /* keterangan */
+  width: 20%;
+}
+
+th:nth-child(4),
+td:nth-child(4) {
+  /* tanggal */
+  width: 20%;
+}
+
+th:nth-child(5),
+td:nth-child(5) {
+  /* status */
+  width: 15%;
+  /* Reduce the width of the status column */
+  white-space: nowrap;
+  /* Prevent wrapping for short status values */
+}
+
+table tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+table tr:hover {
+  background-color: #f1f1f1;
+}
+
+.status-waiting {
+  color: #ffa500;
+  /* Orange for "Menunggu" */
+}
+
+.status-repairing {
+  color: #0006b4;
+  /* Red for "Sedang Diperbaiki" */
+}
+
+.status-completed {
+  color: #008000;
+  /* Green for "Selesai" */
+}

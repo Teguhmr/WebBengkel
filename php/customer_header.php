@@ -12,7 +12,7 @@
       <a href="customer_sparepart.php" class="<?php echo basename($_SERVER['PHP_SELF']) == 'customer_sparepart.php' ? 'active' : ''; ?>">
         <img src="../images/sparepart.png" alt="Sparepart" /> Sparepart
       </a>
-      <a href="../php/logout.php" class="logout">Log Out</a>
+      <a href="logout.php" class="logout">Log Out</a>
     </div>
   </div>
 </header>
