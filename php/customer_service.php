@@ -49,7 +49,10 @@ if (!isset($_SESSION['id_user'])) {
                 <?php
                 include 'database_connection.php'; // Include your DB connection
 
-                $query = "SELECT id_kendaraan, nama_pelanggan, keterangan, tanggal, status FROM kendaraan";
+                $id_user = mysqli_real_escape_string($conn, $_SESSION['id_user']);
+
+                $query = "SELECT id_kendaraan, nama_pelanggan, keterangan, tanggal, 
+                status FROM kendaraan WHERE id_user = '$id_user'";
                 $result = mysqli_query($conn, $query);
 
                 function getStatusClass($status)
