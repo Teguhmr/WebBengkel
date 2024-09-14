@@ -96,6 +96,39 @@ if (!isset($_SESSION['id_user'])) {
             </tbody>
         </table>
     </div>
+    <script>
+    // Function to filter table rows based on search input
+    document.getElementById('search').addEventListener('input', function() {
+        // Get search input value
+        const searchValue = this.value.toLowerCase();
+
+        // Get all rows from the table
+        const rows = document.querySelectorAll('#vehicleTable tbody tr');
+
+        // Loop through the rows and filter based on input
+        rows.forEach(function(row) {
+            // Get all columns of the current row
+            const columns = row.querySelectorAll('td');
+
+            // Assume the row should be hidden initially
+            let shouldShowRow = false;
+
+            // Loop through columns and check if any column contains the search value
+            columns.forEach(function(column) {
+                if (column.textContent.toLowerCase().includes(searchValue)) {
+                    shouldShowRow = true;
+                }
+            });
+
+            // Show or hide the row based on whether it matches the search
+            if (shouldShowRow) {
+                row.style.display = ''; // Show the row
+            } else {
+                row.style.display = 'none'; // Hide the row
+            }
+        });
+    });
+</script>
 
 </body>
 
