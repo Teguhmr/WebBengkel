@@ -18,11 +18,27 @@ include 'database_connection.php'; // Include DB connection
 $id_sparepart = $nama_sparepart = $harga_sparepart = $status = $id_supplier = "";
 $errors = array();
 
-// Fetch the next auto-incremented id_sparepart from the database
-$query_sparepart = "SELECT MAX(id_sparepart) AS last_id FROM sparepart";
-$result_sparepart = mysqli_query($conn, $query_sparepart);
-$row_sparepart = mysqli_fetch_assoc($result_sparepart);
-$id_sparepart = $row_sparepart['last_id'] ? $row_sparepart['last_id'] + 1 : 1; // Default to 1 if no records found
+// Check if we're editing an existing spare part
+$is_editing = isset($_GET['id_sparepart']) && !empty($_GET['id_sparepart']);
+if ($is_editing) {
+    $id_sparepart = mysqli_real_escape_string($conn, $_GET['id_sparepart']);
+    // Fetch existing data
+    $query_sparepart = "SELECT * FROM sparepart WHERE id_sparepart = '$id_sparepart'";
+    $result_sparepart = mysqli_query($conn, $query_sparepart);
+    if ($result_sparepart && mysqli_num_rows($result_sparepart) > 0) {
+        $row_sparepart = mysqli_fetch_assoc($result_sparepart);
+        $nama_sparepart = $row_sparepart['nama_sparepart'];
+        $harga_sparepart = $row_sparepart['harga_sparepart'];
+        $status = $row_sparepart['status'];
+        $id_supplier = $row_sparepart['id_supplier'];
+    } else {
+        $errors['general'] = "Error: Sparepart not found.";
+    }
+} else {
+    // Redirect to add_sparepart.php if no ID is provided
+    header('Location: add_sparepart.php');
+    exit();
+}
 
 // Fetch suppliers from the database for the supplier dropdown
 $query_supplier = "SELECT id_supplier, nama_supplier FROM supplier";
@@ -38,15 +54,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $status = mysqli_real_escape_string($conn, $_POST['status']);
     $id_supplier = mysqli_real_escape_string($conn, $_POST['id_supplier']);
     
-    // Insert the spare part into the 'sparepart' table
-    $query_insert = "INSERT INTO sparepart (id_sparepart, nama_sparepart, harga_sparepart, status, id_supplier)
-                     VALUES ('$id_sparepart', '$nama_sparepart', '$harga_sparepart', '$status', '$id_supplier')";
+    // Update the spare part in the database
+    $query_update = "UPDATE sparepart 
+                     SET nama_sparepart = '$nama_sparepart', harga_sparepart = '$harga_sparepart', status = '$status', id_supplier = '$id_supplier'
+                     WHERE id_sparepart = '$id_sparepart'";
 
-    if (mysqli_query($conn, $query_insert)) {
-        $_SESSION['show_success_modal'] = "Sparepart added successfully.";
-        header('Location: add_sparepart.php'); // Redirect to clear form
+    if (mysqli_query($conn, $query_update) && mysqli_affected_rows($conn) > 0) {
+        $_SESSION['show_success_modal'] = "Sparepart updated successfully.";
+        header('Location: edit_sparepart.php?id_sparepart=' . $id_sparepart); // Redirect to clear form
     } else {
-        $errors['general'] = "Error: Could not process your request. Please try again.";
+        $errors['general'] = "Error: Could not update the record or record not found.";
     }
 }
 ?>
@@ -56,16 +73,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Add Sparepart - Bengkel A3R Team</title>
+    <title>Edit Sparepart - Bengkel A3R Team</title>
     <link rel="stylesheet" href="../css/admin-style.css">
 </head>
 <body>
     <?php include 'admin_header.php'; ?>
 
     <div class="input-container">
-        <h2>Add Sparepart</h2>
+        <h2>Edit Sparepart</h2>
 
-        <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="POST">
+        <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]) . '?id_sparepart=' . $id_sparepart; ?>" method="POST">
             <!-- ID Sparepart (Read-only) -->
             <div class="form-group">
                 <label for="id_sparepart">ID Sparepart:</label>
@@ -75,21 +92,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <!-- Nama Sparepart -->
             <div class="form-group">
                 <label for="nama_sparepart">Nama Sparepart:</label>
-                <input type="text" id="nama_sparepart" name="nama_sparepart" required>
+                <input type="text" id="nama_sparepart" name="nama_sparepart" value="<?php echo $nama_sparepart; ?>" required>
             </div>
 
             <!-- Harga Sparepart -->
             <div class="form-group">
                 <label for="harga_sparepart">Harga Sparepart:</label>
-                <input type="text" id="harga_sparepart" name="harga_sparepart" required oninput="formatCurrency(this)">
+                <input type="text" id="harga_sparepart" name="harga_sparepart" value="<?php echo $harga_sparepart; ?>" required oninput="formatCurrency(this)">
             </div>
 
             <!-- Status -->
             <div class="form-group">
                 <label for="status">Status:</label>
                 <select id="status" name="status" required>
-                    <option value="1">Tersedia</option>
-                    <option value="0">Kosong</option>
+                    <option value="1" <?php if ($status == "1") echo "selected"; ?>>Tersedia</option>
+                    <option value="0" <?php if ($status == "0") echo "selected"; ?>>Kosong</option>
                 </select>
             </div>
 
@@ -99,7 +116,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <select id="id_supplier" name="id_supplier" required>
                     <option value="">-- Pilih Supplier --</option>
                     <?php while ($row_supplier = mysqli_fetch_assoc($result_supplier)) { ?>
-                        <option value="<?php echo $row_supplier['id_supplier']; ?>">
+                        <option value="<?php echo $row_supplier['id_supplier']; ?>" <?php if ($id_supplier == $row_supplier['id_supplier']) echo "selected"; ?>>
                             <?php echo $row_supplier['id_supplier'] . ' - ' . $row_supplier['nama_supplier']; ?>
                         </option>
                     <?php } ?>
@@ -107,8 +124,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             </div>
 
             <!-- Submit Button -->
-            <button type="submit" class="submit-button">Submit</button>
-            <button type="button" class="back-button">Kembali</button>
+            <button type="submit" class="submit-button">Update</button>
+            <button type="button" class="back-button" onclick="history.back();">Kembali</button>
 
             <!-- General error message -->
             <?php if (isset($errors['general'])): ?>
@@ -121,7 +138,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <div class="modal-content">
                 <span class="close">&times;</span>
                 <h2>Success!</h2>
-                <p>Sparepart berhasil ditambahkan.</p>
+                <p>Sparepart berhasil diperbarui.</p>
                 <button class="ok-button" onclick="closeModal()">OK</button>
             </div>
         </div>

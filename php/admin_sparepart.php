@@ -35,11 +35,12 @@ if (!isset($_SESSION['id_user'])) {
             <input type="text" id="search" placeholder="Search...">
         </div>
 
-        <!-- Button to add new spare part -->
         <div class="button-container-left">
-            <button id="addDataButton" class="input-data-button">Input Data</button>
+            <form action="add_sparepart.php" method="GET">
+                <button type="submit" class="input-data-button">Input Data</button>
+            </form>
         </div>
-        
+
 
 
         <table id="sparepartTable">
@@ -50,6 +51,8 @@ if (!isset($_SESSION['id_user'])) {
                     <th>Harga_Sparepart</th>
                     <th>Status</th>
                     <th>id_supplier</th>
+                    <th>Aksi</th>
+
 
                 </tr>
             </thead>
@@ -91,13 +94,20 @@ if (!isset($_SESSION['id_user'])) {
                 while ($row = mysqli_fetch_assoc($result)) {
                     $statusClass = getStatusClass($row['status']); // Should return a string
                     $statusText = getStatusText($row['status']); // Should return a string
-
+                    $formattedHarga = 'Rp ' . number_format($row['harga_sparepart'], 0, ',', '.');
                     echo "<tr>";
                     echo "<td>{$row['id_sparepart']}</td>";
                     echo "<td>{$row['nama_sparepart']}</td>";
-                    echo "<td>{$row['harga_sparepart']}</td>";
+                    echo "<td>{$formattedHarga}</td>";
                     echo "<td class='{$statusClass}'>{$statusText}</td>";
                     echo "<td>{$row['id_supplier']}</td>";
+                    echo "<td>
+                    <a href='edit_sparepart.php?id_sparepart={$row['id_sparepart']}' class='edit-button'>Edit</a>
+                    <form action='delete_sparepart.php' method='POST' style='display:inline;'>
+                        <input type='hidden' name='id_sparepart' value='{$row['id_sparepart']}'>
+                        <button type='submit' class='delete-button' onclick='return confirm(\"Are you sure you want to delete this item?\")'>Delete</button>
+                    </form>
+                  </td>";
                     echo "</tr>";
                 }
                 ?>

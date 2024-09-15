@@ -1,19 +1,29 @@
 <?php
-include 'database_connection.php'; // Include your database connection
+session_start(); // Always start session at the top of the page
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $id_sparepart = $_POST['id_sparepart'];
+// Prevent access if not logged in
+if (!isset($_SESSION['id_user'])) {
+    header('Location: ../index.php'); // Redirect to login page
+    exit();
+}
 
-    // SQL query to delete the spare part
-    $query = "DELETE FROM sparepart WHERE id_sparepart = '$id_sparepart'";
+include 'database_connection.php'; // Include DB connection
 
-    if (mysqli_query($conn, $query)) {
-        echo "Spare part deleted successfully.";
-        header('Location: admin_sparepart.php'); // Redirect back to the spare part admin page
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // Get and sanitize ID
+    $id_sparepart = mysqli_real_escape_string($conn, $_POST['id_sparepart']);
+
+    // Delete from the database
+    $query_delete = "DELETE FROM sparepart WHERE id_sparepart = '$id_sparepart'";
+    
+    if (mysqli_query($conn, $query_delete)) {
+        // Redirect to success page or show success message
+        header('Location: admin_sparepart.php');
+        exit();
     } else {
-        echo "Error deleting record: " . mysqli_error($conn);
+        echo "Error: Could not delete the record. Please try again.";
     }
-
-    mysqli_close($conn); // Close the database connection
+} else {
+    echo "Invalid request.";
 }
 ?>
