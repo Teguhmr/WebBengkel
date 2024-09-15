@@ -126,3 +126,34 @@ body {
   margin: 10px 0;
   color: #333;
 }
+.queue-container {
+  margin: 20px;
+  padding: 20px;
+  display: flex;
+  align-items: center; /* Center vertically */
+  flex-direction: column; /* Stack the title and queue items */
+  text-align: center;
+}
+
+.queue-box {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center; /* Center horizontally */
+  gap: 20px;
+}
+
+.queue-item {
+  background-color: #fff;
+  border: 2px solid blue;
+  border-radius: 8px;
+  padding: 15px;
+  width: 100px;
+  height: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center; /* Center the text inside the box */
+  font-size: 38px;
+  font-weight: bold;
+  color: blue;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
