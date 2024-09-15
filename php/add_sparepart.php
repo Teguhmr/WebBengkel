@@ -37,14 +37,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $harga_sparepart = str_replace(',', '.', $harga_sparepart); // Convert comma to period for decimal if necessary
     $status = mysqli_real_escape_string($conn, $_POST['status']);
     $id_supplier = mysqli_real_escape_string($conn, $_POST['id_supplier']);
-    
+
     // Insert the spare part into the 'sparepart' table
     $query_insert = "INSERT INTO sparepart (id_sparepart, nama_sparepart, harga_sparepart, status, id_supplier)
                      VALUES ('$id_sparepart', '$nama_sparepart', '$harga_sparepart', '$status', '$id_supplier')";
 
     if (mysqli_query($conn, $query_insert)) {
-        $_SESSION['show_success_modal'] = "Sparepart added successfully.";
+        $_SESSION['show_success_modal'] = "Sparepart berhasil ditambahkan.";
         header('Location: add_sparepart.php'); // Redirect to clear form
+        exit(); // Ensure script stops after the redirect
     } else {
         $errors['general'] = "Error: Could not process your request. Please try again.";
     }
@@ -53,12 +54,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Add Sparepart - Bengkel A3R Team</title>
     <link rel="stylesheet" href="../css/admin-style.css">
 </head>
+
 <body>
     <?php include 'admin_header.php'; ?>
 
@@ -108,22 +111,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             <!-- Submit Button -->
             <button type="submit" class="submit-button">Submit</button>
-            <button type="button" class="back-button">Kembali</button>
+            <button type="button" class="back-button" onclick="window.location.href='admin_sparepart.php'">Kembali</button>
 
             <!-- General error message -->
             <?php if (isset($errors['general'])): ?>
                 <p class="error"><?php echo $errors['general']; ?></p>
             <?php endif; ?>
-        </form>
+    </div>
 
-        <!-- Success Modal -->
-        <div id="successModal" class="modal">
-            <div class="modal-content">
-                <span class="close">&times;</span>
-                <h2>Success!</h2>
-                <p>Sparepart berhasil ditambahkan.</p>
-                <button class="ok-button" onclick="closeModal()">OK</button>
-            </div>
+    </form>
+    <!-- Success Modal -->
+    <div id="successModal" class="modal">
+        <div class="modal-content">
+            <h3 id="modalMessage"></h3>
+            <button id="closeModal">OK</button>
         </div>
     </div>
 
@@ -134,23 +135,25 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, '.');
             input.value = parts.join(',');
         }
+        // Show success alert if session is set
 
-        var modal = document.getElementById('successModal');
-
-        function closeModal() {
-            modal.style.display = 'none';
-        }
-
-        window.onclick = function(event) {
-            if (event.target === modal) {
-                closeModal();
-            }
-        }
-
+        // Show custom modal if session is set
         <?php if (isset($_SESSION['show_success_modal'])): ?>
-            modal.style.display = 'flex'; // Display the modal
-            <?php unset($_SESSION['show_success_modal']); ?>
+            document.addEventListener('DOMContentLoaded', function() {
+                const modal = document.getElementById('successModal');
+                const modalMessage = document.getElementById('modalMessage');
+                modalMessage.textContent = "<?php echo $_SESSION['show_success_modal']; ?>";
+                modal.style.display = 'flex'; // Show the modal
+
+                const closeModal = document.getElementById('closeModal');
+                closeModal.onclick = function() {
+                    modal.style.display = 'none'; // Close modal
+                };
+            });
+            <?php unset($_SESSION['show_success_modal']); // Clear the session variable after showing the modal 
+            ?>
         <?php endif; ?>
     </script>
 </body>
+
 </html>

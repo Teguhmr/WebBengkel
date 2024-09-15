@@ -1,6 +1,8 @@
 <?php
 session_start(); // Start the session
 
+date_default_timezone_set('Asia/Jakarta'); // Set to your time zone
+
 // Prevent access if not logged in
 if (!isset($_SESSION['id_user'])) {
     header('Location: ../index.php'); // Redirect to login page
@@ -28,6 +30,12 @@ $nama_pelanggan = $row_user['nama_user'];
 $today = date('Y-m-d');
 $query_queue = "SELECT MAX(no_antrian) as last_queue FROM kendaraan WHERE DATE(tanggal) = '$today'";
 $result_queue = mysqli_query($conn, $query_queue);
+
+// Check for SQL errors
+if (!$result_queue) {
+    die('Error: ' . mysqli_error($conn));
+}
+
 $row_queue = mysqli_fetch_assoc($result_queue);
 
 // If there are bookings today, increment the queue number; otherwise, set it to 1
@@ -36,6 +44,7 @@ if ($row_queue['last_queue']) {
 } else {
     $no_antrian = 1;
 }
+
 
 // Handle form submission
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -70,7 +79,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
-        $(document).ready(function() {
+        document.addEventListener('DOMContentLoaded', function() {
+            // Set default date to today
+            function setTodayDate() {
+                const today = new Date();
+                const year = today.getFullYear();
+                const month = String(today.getMonth() + 1).padStart(2, '0'); // Months are zero-based
+                const day = String(today.getDate()).padStart(2, '0'); // Add leading zero for single digit days
+                const formattedDate = `${year}-${month}-${day}`;
+                document.getElementById('tanggal').value = formattedDate;
+            }
+
+            setTodayDate(); // Call the function to set the default date
+
+            // Handle date change event
             $('#tanggal').on('change', function() {
                 let selectedDate = $(this).val();
                 if (selectedDate) {
@@ -131,7 +153,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <!-- Tanggal field (User fills this) -->
             <div class="form-group">
                 <label for="tanggal">Tanggal:</label>
-                <input type="date" name="tanggal" id="tanggal" required value="<?php echo $tanggal; ?>">
+                <input type="date" name="tanggal" id="tanggal" required>
                 <?php if (isset($errors['tanggal'])): ?>
                     <span class="error"><?php echo $errors['tanggal']; ?></span>
                 <?php endif; ?>
@@ -139,7 +161,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             <!-- Submit Button -->
             <button type="submit" class="submit-button">Submit Booking</button>
-            <button type="button" class="back-button" onclick="history.back();">Kembali</button>
+            <button type="button" class="back-button" onclick="window.location.href='customer_service.php'">Kembali</button>
 
             <!-- Error message for general errors -->
             <?php if (isset($errors['general'])): ?>

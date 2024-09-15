@@ -53,29 +53,31 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $harga_sparepart = str_replace(',', '.', $harga_sparepart); // Convert comma to period for decimal if necessary
     $status = mysqli_real_escape_string($conn, $_POST['status']);
     $id_supplier = mysqli_real_escape_string($conn, $_POST['id_supplier']);
-    
+
     // Update the spare part in the database
     $query_update = "UPDATE sparepart 
                      SET nama_sparepart = '$nama_sparepart', harga_sparepart = '$harga_sparepart', status = '$status', id_supplier = '$id_supplier'
                      WHERE id_sparepart = '$id_sparepart'";
-
-    if (mysqli_query($conn, $query_update) && mysqli_affected_rows($conn) > 0) {
-        $_SESSION['show_success_modal'] = "Sparepart updated successfully.";
+    if (mysqli_query($conn, $query_update)) {
+        $_SESSION['show_success_modal'] = "Sparepart berhasil diperbarui.";
         header('Location: edit_sparepart.php?id_sparepart=' . $id_sparepart); // Redirect to clear form
+        exit(); // Ensure script stops after the redirect
     } else {
-        $errors['general'] = "Error: Could not update the record or record not found.";
+        $errors['general'] = "Error: Could not process your request. Please try again.";
     }
 }
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Edit Sparepart - Bengkel A3R Team</title>
     <link rel="stylesheet" href="../css/admin-style.css">
 </head>
+
 <body>
     <?php include 'admin_header.php'; ?>
 
@@ -125,7 +127,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             <!-- Submit Button -->
             <button type="submit" class="submit-button">Update</button>
-            <button type="button" class="back-button" onclick="history.back();">Kembali</button>
+            <button type="button" class="back-button" onclick="window.location.href='admin_sparepart.php'">Kembali</button>
 
             <!-- General error message -->
             <?php if (isset($errors['general'])): ?>
@@ -136,10 +138,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <!-- Success Modal -->
         <div id="successModal" class="modal">
             <div class="modal-content">
-                <span class="close">&times;</span>
-                <h2>Success!</h2>
-                <p>Sparepart berhasil diperbarui.</p>
-                <button class="ok-button" onclick="closeModal()">OK</button>
+                <h3 id="modalMessage"></h3>
+                <button id="closeModal">OK</button>
             </div>
         </div>
     </div>
@@ -152,22 +152,23 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             input.value = parts.join(',');
         }
 
-        var modal = document.getElementById('successModal');
-
-        function closeModal() {
-            modal.style.display = 'none';
-        }
-
-        window.onclick = function(event) {
-            if (event.target === modal) {
-                closeModal();
-            }
-        }
-
+        // Show custom modal if session is set
         <?php if (isset($_SESSION['show_success_modal'])): ?>
-            modal.style.display = 'flex'; // Display the modal
-            <?php unset($_SESSION['show_success_modal']); ?>
+            document.addEventListener('DOMContentLoaded', function() {
+                const modal = document.getElementById('successModal');
+                const modalMessage = document.getElementById('modalMessage');
+                modalMessage.textContent = "<?php echo $_SESSION['show_success_modal']; ?>";
+                modal.style.display = 'flex'; // Show the modal
+
+                const closeModal = document.getElementById('closeModal');
+                closeModal.onclick = function() {
+                    modal.style.display = 'none'; // Close modal
+                };
+            });
+            <?php unset($_SESSION['show_success_modal']); // Clear the session variable after showing the modal 
+            ?>
         <?php endif; ?>
     </script>
 </body>
+
 </html>
