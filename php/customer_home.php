@@ -39,7 +39,7 @@ $result_queue = mysqli_query($conn, $query_queue);
       <p>Melayani kebutuhan kendaraan anda</p>
     </div>
     <div class="queue-container">
-      <h2>Nomor Antrian Kendaraan Sedang Berjalan</h2>
+      <h2>Nomor Antrian Service Sedang Berjalan</h2>
       <?php if (mysqli_num_rows($result_queue) > 0): ?>
         <div class="queue-box">
           <?php while ($row = mysqli_fetch_assoc($result_queue)): ?>
