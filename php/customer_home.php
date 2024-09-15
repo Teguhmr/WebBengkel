@@ -11,6 +11,10 @@ if (!isset($_SESSION['id_user'])) {
   header('Location: ../index.php'); // Redirect to login page
   exit();
 }
+include 'database_connection.php'; // Include DB connection
+// Query to get queue numbers for all users whose status is "Sedang Diperbaiki"
+$query_queue = "SELECT no_antrian FROM kendaraan WHERE status = 1";
+$result_queue = mysqli_query($conn, $query_queue);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -33,6 +37,20 @@ if (!isset($_SESSION['id_user'])) {
       <h1>Selamat Datang di</h1>
       <h2>BENGKEL A3R TEAM</h2>
       <p>Melayani kebutuhan kendaraan anda</p>
+    </div>
+    <div class="queue-container">
+      <h2>Nomor Antrian Kendaraan Sedang Berjalan</h2>
+      <?php if (mysqli_num_rows($result_queue) > 0): ?>
+        <div class="queue-box">
+          <?php while ($row = mysqli_fetch_assoc($result_queue)): ?>
+            <div class="queue-item">
+              <p><?php echo $row['no_antrian']; ?></p>
+            </div>
+          <?php endwhile; ?>
+        </div>
+      <?php else: ?>
+        <p>Tidak ada antrian kendaraan yang sedang diperbaiki saat ini.</p>
+      <?php endif; ?>
     </div>
   </main>
 </body>
