@@ -277,3 +277,14 @@ table tr:hover {
   color: #008000;
   /* Green for "Selesai" */
 }
+
+.status-available {
+  color: #0006b4;
+  /* Red for "Tersedia" */
+}
+
+.status-empty {
+  color: #f3060ada;
+  /* Red for "Empty" */
+}
+

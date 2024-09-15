@@ -113,6 +113,7 @@ if (!isset($_SESSION['id_user'])) {
             </tbody>
         </table>
     </div>
+    
 
 </body>
 
