@@ -57,11 +57,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                      VALUES ('$no_antrian', '$id_user', '$nama_pelanggan', '$no_kendaraan', '$keterangan', '$tanggal', '0')";
 
     if (mysqli_query($conn, $query_insert)) {
-        // Redirect to success page
-        header('Location: booking_success.php');
-        exit();
+        $_SESSION['show_success_modal'] = "Booking berhasil ditambahkan.";
+        header('Location: customer_booking_service.php'); // Redirect to clear form
+        exit(); // Ensure script stops after the redirect
     } else {
-        $errors['general'] = "Error: Could not process your booking. Please try again.";
+        $errors['general'] = "Error: Could not process your request. Please try again.";
     }
 }
 
@@ -168,7 +168,33 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <p class="error"><?php echo $errors['general']; ?></p>
             <?php endif; ?>
         </form>
+        <!-- Success Modal -->
+        <div id="successModal" class="modal">
+            <div class="modal-content">
+                <h3 id="modalMessage"></h3>
+                <button id="closeModal">OK</button>
+            </div>
+        </div>
+
     </div>
+    <script>
+        // Show custom modal if session is set
+        <?php if (isset($_SESSION['show_success_modal'])): ?>
+            document.addEventListener('DOMContentLoaded', function() {
+                const modal = document.getElementById('successModal');
+                const modalMessage = document.getElementById('modalMessage');
+                modalMessage.textContent = "<?php echo $_SESSION['show_success_modal']; ?>";
+                modal.style.display = 'flex'; // Show the modal
+
+                const closeModal = document.getElementById('closeModal');
+                closeModal.onclick = function() {
+                    window.location.href = 'customer_service.php';
+                };
+            });
+            <?php unset($_SESSION['show_success_modal']); // Clear the session variable after showing the modal 
+            ?>
+        <?php endif; ?>
+    </script>
 </body>
 
 </html>

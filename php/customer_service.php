@@ -83,7 +83,7 @@ if (!isset($_SESSION['id_user'])) {
                         case 2:
                             return 'Selesai';
                         default:
-                            return 'Unknown'; // Fallback if an unexpected status is found
+                            return 'Tidak Ada'; // Fallback if an unexpected status is found
                     }
                 }
 
@@ -113,7 +113,7 @@ if (!isset($_SESSION['id_user'])) {
             </tbody>
         </table>
     </div>
-    
+
 
 </body>
 
