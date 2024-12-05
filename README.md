@@ -14,39 +14,35 @@ Getting Started
 
 1. Download Pack of Code
 2. Run XAMPP (apache & mysql)
-3. 
-Prototype
----------------
-[Prototype](https://salaamustadz.my.canva.site)
+3. Import DB to localhost phpmyadmin
+4. Save Web File in folder htdocs XAMPP
+5. Run in Browser
+   
 
 Screenshoot
 ---------------
 
-Splash Screen             |  Sign In
+Login            |  Register
 :-------------------------:|:-------------------------:
-<img src="./screenshoot/1.png" width="200">  |  <img src="./screenshoot/2.png" width="200">
+<img src="./screenshoot/1. Login-Cust.png" width="200">  |  <img src="./screenshoot/1. Register-Cust.png" width="200">
 
 
-Home          |  Consultation
+Home Customer          |  Service Customer
 :-------------------------:|:-------------------------:
-<img src="./screenshoot/3.png" width="200">  |  <img src="./screenshoot/4.png" width="200">
+<img src="./screenshoot/2. Home-Cust.png" width="200">  |  <img src="./screenshoot/3. Service-Cust.png" width="200">
 
-
-Article          |  Guidance on Worship
+Admin Penjualan          |  Booking Service Customer
 :-------------------------:|:-------------------------:
-<img src="./screenshoot/5.png" width="200">  |  <img src="./screenshoot/6.png" width="200">
+<img src="./screenshoot/3. Admin-Penjualan.png" width="200">  |  <img src="./screenshoot/4. Booking Service-Cust.png" width="200">
 
 
-Prayer          |  Quran
+Admin Customer          |  Admin Edit Customer
 :-------------------------:|:-------------------------:
-<img src="./screenshoot/7.png" width="200">  |  <img src="./screenshoot/8.png" width="200">
+<img src="./screenshoot/1. Admin-Cust.png" width="200">  |  <img src="./screenshoot/2. Admin-Edit Cust.png" width="200">
 
 
-Doa          |  Dzikr
+Admin Service          |  Admin Edit Service
 :-------------------------:|:-------------------------:
-<img src="./screenshoot/9.png" width="200">  |  <img src="./screenshoot/10.png" width="200">
+<img src="./screenshoot/2. Admin-Service.png" width="200">  |  <img src="./screenshoot/4. Admin-Edit Service.png" width="200">
 
 
-Profile         |
-:-------------------------:|
-<img src="./screenshoot/9.png" width="200"> | 
